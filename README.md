@@ -9,6 +9,11 @@ Criar um usuário IAM com permissões administrativas e adicionar no seu cli da 
 Criar chave publica e privada para importar na AWS. (Detalhar os passos)
 
 
+TO DO
+- Adicionar ip publico local nas regras de acesso SSH
+- Popular o hosts do ansible com os ips e nome recolhidos do AWS
+
+
 ------------------------------------------------------
 
 Detalhes da criação do ambiente para ser feito

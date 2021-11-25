@@ -10,7 +10,7 @@ ingress {
   to_port          = 22
   protocol         = "tcp"
   # cidr_blocks      = var.cdir_acesso_remoto
-  cidr_blocks      = ["${local.ifconfig_co_json}/32"]
+  cidr_blocks      = ["${local.my_ip_local_internet}/32"]
 }
 ingress {
 description      = "Acesso kubelet api"
@@ -64,7 +64,7 @@ ingress {
   to_port          = 22
   protocol         = "tcp"
   # cidr_blocks      = var.cdir_acesso_remoto
-  cidr_blocks      = ["${local.ifconfig_co_json}/32"]
+  cidr_blocks      = ["${local.my_ip_local_internet}/32"]
 }
 ingress {
   description      = "Whatever" #Precisa ver essa porra aqui

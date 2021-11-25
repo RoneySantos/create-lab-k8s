@@ -19,5 +19,5 @@ data "http" "my_public_ip" {
 }
 
 locals {
-  ifconfig_co_json = "${(data.http.my_public_ip.body)}"
+  my_ip_local_internet = "${(data.http.my_public_ip.body)}"
 }
