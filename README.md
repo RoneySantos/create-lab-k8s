@@ -16,3 +16,16 @@ Detalhes da criação do ambiente para ser feito
 1 Criar as 3 maquinas, 1 master e duas slave
 Maquina Ubuntu t2 micro
 
+Portas para o MASTER
+
+10250 Kubelet API
+6443  Kubernetes API server
+2379 - 2380 etcd server client API
+10251 kube scheduler
+10252 kube controller manager
+
+Portas Workers
+
+6783 - 6784 whatever
+10250 Kubelet API
+30000 - 32767 NodePort
