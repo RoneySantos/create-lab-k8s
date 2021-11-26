@@ -9,7 +9,6 @@ ingress {
   from_port        = 22
   to_port          = 22
   protocol         = "tcp"
-  # cidr_blocks      = var.cdir_acesso_remoto
   cidr_blocks      = ["${local.my_ip_local_internet}/32"]
 }
 ingress {
@@ -48,7 +47,7 @@ ingress {
   cidr_blocks      = ["0.0.0.0/0"]
 }
 ingress {
-  description      = "Regra do Jeferson"
+  description      = "Proprio SG"
   from_port        = 0
   to_port          = 0
   protocol         = "tcp"
@@ -77,11 +76,10 @@ ingress {
   from_port        = 22
   to_port          = 22
   protocol         = "tcp"
-  # cidr_blocks      = var.cdir_acesso_remoto
   cidr_blocks      = ["${local.my_ip_local_internet}/32"]
 }
 ingress {
-  description      = "Whatever" #Precisa ver essa porra aqui
+  description      = "NodePort Service All"
   from_port        = 6783
   to_port          = 6784
   protocol         = "tcp"
