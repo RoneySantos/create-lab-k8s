@@ -1,0 +1,10 @@
+#(C) Copyright 2021 Hewlett Packard Enterprise Development LP
+---
+
+# | ----------------------- |
+# |  Platform Agent Deploy  |
+# | ----------------------- |
+
+- hosts: localhost
+  roles:
+    - teste
