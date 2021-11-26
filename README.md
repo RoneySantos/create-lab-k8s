@@ -12,9 +12,9 @@ Criar chave publica e privada para importar na AWS. (Detalhar os passos)
 TO DO
 - Adicionar ip publico local nas regras de acesso SSH - OK
 - Popular o hosts do ansible com os ips e nome recolhidos do AWS
-- Adicionar saida para security groups
+- Adicionar saida para security groups - OK
 - Alterar hostname das maquinas (interno via ansible)
-- adicionar nas regras de entrada do master, acesso total do proprio grupo
+- adicionar nas regras de entrada do master, acesso total do proprio grupo - OK
 
 
 ------------------------------------------------------

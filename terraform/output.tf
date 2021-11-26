@@ -5,3 +5,7 @@ output "conecta_master-k8s" {
 output "ip_publico" {
   value = "Esse e seu ip atual: ${local.my_ip_local_internet}"
 }
+
+output "teste"{
+  value = aws_security_group.cria-portas-master-k8s.arn
+}

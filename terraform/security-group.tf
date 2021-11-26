@@ -47,6 +47,20 @@ ingress {
   protocol         = "tcp"
   cidr_blocks      = ["0.0.0.0/0"]
 }
+ingress {
+  description      = "Regra do Jeferson"
+  from_port        = 0
+  to_port          = 0
+  protocol         = "tcp"
+  self = true
+}
+egress {
+  description      = "Liberando saida"
+  from_port        = 0
+  to_port          = 0
+  protocol         = "-1"
+  cidr_blocks      = ["0.0.0.0/0"]
+}
 tags = {
     Name = "K8S-MASTER-PORT-TERRAFORM"
   }
@@ -85,6 +99,13 @@ ingress {
   from_port        = 30000
   to_port          = 32767
   protocol         = "tcp"
+  cidr_blocks      = ["0.0.0.0/0"]
+}
+egress {
+  description      = "Liberando saida"
+  from_port        = 0
+  to_port          = 0
+  protocol         = "-1"
   cidr_blocks      = ["0.0.0.0/0"]
 }
 tags = {
