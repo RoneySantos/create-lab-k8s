@@ -15,6 +15,7 @@ TO DO
 - Adicionar saida para security groups - OK
 - Alterar hostname das maquinas (interno via ansible)
 - adicionar nas regras de entrada do master, acesso total do proprio grupo - OK
+- Usar o modulo uri para instalacao do docker
 
 
 ------------------------------------------------------

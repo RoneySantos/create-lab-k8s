@@ -5,6 +5,6 @@
 # |  Platform Agent Deploy  |
 # | ----------------------- |
 
-- hosts: localhost
+- hosts: lab-k8s
   roles:
-    - teste
+    - master-k8s
