@@ -7,4 +7,14 @@
 
 - hosts: lab-k8s
   roles:
+    - instalacao-basica-k8s
+
+- hosts: lab-k8s-master
+  roles:
     - master-k8s
+
+- hosts: lab-k8s-nodes
+  vars_files:
+   - vars.yaml
+  roles:
+    - instalacao-nodes

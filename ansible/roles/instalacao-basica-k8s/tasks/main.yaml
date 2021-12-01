@@ -1,0 +1,84 @@
+#(C) Copyright 2021 Hewlett Packard Enterprise Development LP
+---
+- name: Modulos necessarios para o Kubernetes
+  copy:
+    dest: "/etc/modules-load.d/k8s.conf"
+    content: |
+      br_netfilter
+      ip_vs
+      ip_vs_rr
+      ip_vs_sh
+      ip_vs_wrr
+      nf_conntrack_ipv4
+  become: yes
+
+- name: Atualizar pacotes e SO
+  apt:
+    upgrade: dist
+    update_cache: yes
+  become: yes
+
+- name: Instalando docker
+  shell: 'curl -fsSL https://get.docker.com | bash'
+  become: yes
+
+- name: Configurando docker para rodar com SystemD
+  copy:
+    dest: "/etc/docker/daemon.json"
+    content: |
+      {
+        "exec-opts": ["native.cgroupdriver=systemd"],
+        "log-driver": "json-file",
+        "log-opts": {
+          "max-size": "100m"
+        },
+        "storage-driver": "overlay2"
+      }
+  become: yes
+
+- name: Criar diretorio do SystemD
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+  become: yes
+
+- name: Reinicia o docker e o daemon para usar o SystemD
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+  become: yes
+
+- name: Instalacao para liberar https e permitir assinaturas digitais
+  apt:
+    update_cache: yes
+    pkg:
+    - apt-transport-https
+    - gnupg2
+  become: yes
+
+- name: Adicionando chave
+  shell: 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -'
+  become: yes
+
+- name: Adicionando repositorio k8s
+  shell: 'sudo echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
+  become: yes
+
+- name: Atualizar repo apt com k8s
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Instalando K8S
+  apt:
+    update_cache: yes
+    pkg:
+    - kubelet
+    - kubeadm
+    - kubectl
+  become: yes
+
+- name: Desativar SWAP
+  shell: |
+    swapoff -a

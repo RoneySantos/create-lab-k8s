@@ -1,0 +1,65 @@
+#(C) Copyright 2021 Hewlett Packard Enterprise Development LP
+---
+  - name: Baixando imagens que serao usadas no master
+    shell: kubeadm config images pull
+    become: yes
+  
+  - name: Iniciando o kubeadm ignorando numero de CPU e memoria
+    shell: kubeadm init --ignore-preflight-errors=NumCPU,Mem
+    # register: result
+    # until: result.stdout.find("Your Kubernetes master has initialized successfully!") != -1
+    # delay: 60
+    # # retries: 1
+    become: yes
+
+  # - name: Esperar um minuto da instalacao
+  #   wait_for:
+  #     timeout: 60
+  
+  - name: Criando .kube na home do ROOT
+    file:
+      path: /root/.kube
+      state: directory
+    become: yes
+
+  - name: copy kubernetes admin.conf to root home dir
+    copy:
+      src: /etc/kubernetes/admin.conf
+      dest: /root/.kube/config
+      remote_src: yes
+    become: yes
+
+  - name: Reinicia o daemon e o Kubelet
+    ansible.builtin.systemd:
+      state: restarted
+      daemon_reload: yes
+      name: kubelet
+    become: yes
+
+  - name: Carregando modulos caso nao tenha restartado
+    shell: sudo modprobe br_netfilter ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4 ip_vs
+    become: yes
+
+  - name: Instalando WeaveNET
+    shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+    become: yes
+
+  - name: Subida WeaveNET
+    wait_for:
+      timeout: 60
+
+  - name: Salva comando para adicionar node ao master
+    shell: "kubeadm token create --print-join-command"
+    register: kube_join
+    become: yes
+
+  - name: Adicionar teste
+    delegate_to: localhost
+    copy:
+      dest: "/home/roney/Documents/create-lab-k8s/ansible/vars.yaml"
+      content: |
+        adicionar_no: {{ kube_join.stdout }}
+    become: yes
+    
+
+

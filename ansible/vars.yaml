@@ -1,0 +1,1 @@
+adicionar_no: kubeadm join 172.31.39.214:6443 --token s7hr8x.zz0cbpqpeop17cbf --discovery-token-ca-cert-hash sha256:a0a29ac2b24712a2fddd8515738d70071aa4ed0f7d6d1044c2e2d364ede66f26 

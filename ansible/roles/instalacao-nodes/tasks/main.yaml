@@ -1,0 +1,9 @@
+#(C) Copyright 2021 Hewlett Packard Enterprise Development LP
+---
+- name: "Incluindo nos no cluster"
+  shell: "{{ adicionar_no }}"
+  become: yes
+
+
+# - debug: msg="{{ kube_join.stdout }}"
+#   delegate_to: lab-k8s-node
